@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================= -->
+    <!-- Bid List View -->
+    <!-- ============================= -->
+
+    <record id="view_sales_bid_list" model="ir.ui.view">
+        <field name="name">sales.bid.list</field>
+        <field name="model">sales.bid</field>
+        <field name="arch" type="xml">
+            <list string="My Bids">
+                <field name="bid_date"/>
+                <field name="salesperson_id"/>
+                <field name="platform"/>
+                <field name="name"/>
+                <field name="bid_amount"/>
+                <field name="bid_type"/>
+                <field name="status"/>
+                <field name="daily_bid_count" string="Today's Bids"/>
+                <field name="daily_bid_target" string="Daily Target"/>
+                <field
+                    name="daily_achievement"
+                    string="Daily Achievement"
+                />
+                
+            </list>
+        </field>
+    </record>
+
+
+    <!-- ============================= -->
+    <!-- Bid Form View -->
+    <!-- ============================= -->
+
+    <record id="view_sales_bid_form" model="ir.ui.view">
+        <field name="name">sales.bid.form</field>
+        <field name="model">sales.bid</field>
+        <field name="arch" type="xml">
+            <form string="Bid">
+                <sheet>
+
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="platform"/>
+                            <field name="job_url"/>
+                            <field name="bid_amount"/>
+                            <field name="bid_type"/>
+                        </group>
+
+                        <group>
+                            <field name="status"/>
+                            <field name="salesperson_id"/>
+                            <field name="bid_date"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <field name="notes"/>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- ============================= -->
+    <!-- Search View -->
+    <!-- ============================= -->
+
+    <record id="view_sales_bid_search" model="ir.ui.view">
+        <field name="name">sales.bid.search</field>
+        <field name="model">sales.bid</field>
+        <field name="arch" type="xml">
+            <search string="Search Bids">
+
+            <!-- Search Fields -->
+                <field name="name"/>
+                <field name="salesperson_id"/>
+                <field name="platform"/>
+                <field name="status"/>
+                <field name="bid_date"/>
+
+                <separator/>
+
+                <!-- My Bids -->
+                <filter
+                    name="my_bids"
+                    string="My Bids"
+                    domain="[('salesperson_id', '=', uid)]"
+                />
+
+                <separator/>
+
+                <!-- Today -->
+                <filter
+                    name="today"
+                    string="Today"
+                    domain="[
+                        ('bid_date', '>=', 'today'),
+                        ('bid_date', '&lt;', 'today +1d')
+                    ]"
+                />
+
+                <separator/>
+
+                <!-- Date Search -->
+                <filter
+                    name="filter_bid_date"
+                    string="Bid Date"
+                    date="bid_date"
+                />
+
+                <!-- Group By -->
+                <group>
+
+                    <filter
+                        name="group_salesperson"
+                        string="Salesperson"
+                        context="{'group_by': 'salesperson_id'}"
+                    />
+
+                    <filter
+                        name="group_platform"
+                        string="Platform"
+                        context="{'group_by': 'platform'}"
+                    />
+
+                    <filter
+                        name="group_status"
+                        string="Status"
+                        context="{'group_by': 'status'}"
+                    />
+
+                    <filter
+                        name="group_day"
+                        string="Day"
+                        context="{'group_by': 'bid_date:day'}"
+                    />
+
+                    <filter
+                        name="group_week"
+                        string="Week"
+                        context="{'group_by': 'bid_date:week'}"
+                    />
+
+                    <filter
+                        name="group_month"
+                        string="Month"
+                        context="{'group_by': 'bid_date:month'}"
+                    />
+
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+
+    <!-- ============================= -->
+    <!-- My Bids Window Action -->
+    <!-- ============================= -->
+
+    <record id="action_sales_bids" model="ir.actions.act_window">
+        <field name="name">My Bids</field>
+        <field name="res_model">sales.bid</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_sales_bid_search"/>
+
+        <field name="context">
+            {
+                'search_default_my_bids': 1,
+                'search_default_today': 1
+            }
+        </field>
+    </record>
+
+
+    <!-- ============================= -->
+    <!-- Team Bids Window Action -->
+    <!-- ============================= -->
+
+    <record id="action_sales_bid_team" model="ir.actions.act_window">
+        <field name="name">Team Bids</field>
+        <field name="res_model">sales.bid</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_sales_bid_search"/>
+
+        <field name="context">
+            {
+                'search_default_today': 1
+            }
+        </field>
+    </record>
+
+
+    <!-- ============================= -->
+    <!-- Main Menu -->
+    <!-- ============================= -->
+
+    <menuitem
+        id="menu_sales_bidding_root"
+        name="Sales Bidding"
+        sequence="10"
+        groups="sales_bidding.group_sales_bidding_user,sales_bidding.group_sales_bidding_manager"
+    />
+
+    <menuitem
+        id="menu_sales_bidding_my_bids"
+        name="My Bids"
+        parent="menu_sales_bidding_root"
+        action="action_sales_bids"
+        sequence="10"
+        groups="sales_bidding.group_sales_bidding_user,sales_bidding.group_sales_bidding_manager"
+    />
+
+    <menuitem
+        id="menu_sales_bidding_team_bids"
+        name="Team Bids"
+        parent="menu_sales_bidding_root"
+        action="action_sales_bid_team"
+        sequence="20"
+        groups="sales_bidding.group_sales_bidding_manager"
+    />
+
+</odoo>

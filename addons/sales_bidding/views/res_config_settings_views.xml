@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sales.bidding</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//form" position="inside">
+
+                <app
+                    string="Sales Bidding"
+                    name="sales_bidding"
+                    groups="sales_bidding.group_sales_bidding_manager"
+                >
+                    <block title="Bidding Configuration">
+
+                        <setting
+                            string="Daily Bid Target"
+                            help="Default number of bids a salesperson should submit per day."
+                        >
+                            <field name="daily_bid_target"/>
+                        </setting>
+
+                    </block>
+                </app>
+
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
