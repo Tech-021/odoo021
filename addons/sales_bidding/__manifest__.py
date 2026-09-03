@@ -12,6 +12,13 @@
         "views/sales_bid_views.xml",
         "views/res_config_settings_views.xml",
     ],
+    "assets": {
+    "web.assets_backend": [
+            "sales_bidding/static/src/sales_bid_my_list/sales_bid_my_list.xml",
+            "sales_bidding/static/src/sales_bid_my_list/sales_bid_my_list.js",
+            "sales_bidding/static/src/sales_bid_my_list/sales_bid_my_list.scss",
+        ],
+    },
     "installable": True,
     "application": True,
 }

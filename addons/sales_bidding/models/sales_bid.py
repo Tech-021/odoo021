@@ -1,7 +1,7 @@
 from datetime import datetime, time, timedelta
 
-from odoo import api, fields, models
 
+from odoo import api, fields, models
 
 class SalesBid(models.Model):
     _name = "sales.bid"
@@ -92,6 +92,30 @@ class SalesBid(models.Model):
         string="Daily Achievement %",
         compute="_compute_daily_bid_achievement",
     )
+
+    @api.model
+    def get_my_today_stats(self):
+        today = fields.Date.context_today(self)
+        start = datetime.combine(today, time.min)
+        end = start + timedelta(days=1)
+
+        target = int(
+            self.env["ir.config_parameter"].sudo().get_param(
+                "sales_bidding.daily_bid_target", default=40
+            )
+        )
+
+        count = self.search_count([
+            ("salesperson_id", "=", self.env.user.id),
+            ("bid_date", ">=", start),
+            ("bid_date", "<", end),
+        ])
+
+        return {
+            "target": target,
+            "count": count,
+            "achievement": (count / target) * 100 if target > 0 else 0.0,
+        }
 
     @api.depends("salesperson_id", "bid_date")
     def _compute_daily_bid_achievement(self):

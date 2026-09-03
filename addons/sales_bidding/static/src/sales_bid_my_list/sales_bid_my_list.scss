@@ -1,0 +1,60 @@
+.o_sb_stats_banner {
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 0.95rem;
+
+    strong { color: #714B67; margin-right: 4px; }
+}
+
+.o_sb_stats_banner {
+    padding: 12px 0 4px;
+
+    .o_sb_stats_cards {
+        .o_sb_stat_card {
+            flex: 1;
+            min-width: 140px;
+            background: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px 16px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+
+            .o_sb_stat_value {
+                display: block;
+                font-size: 1.75rem;
+                font-weight: 700;
+                color: #714B67; // Odoo purple
+                line-height: 1.2;
+            }
+
+            .o_sb_stat_label {
+                display: block;
+                font-size: 0.8rem;
+                color: #6c757d;
+                margin-top: 4px;
+                text-transform: uppercase;
+                letter-spacing: 0.03em;
+            }
+
+            &.o_sb_stat_success .o_sb_stat_value { color: #28a745; }
+            &.o_sb_stat_warning .o_sb_stat_value { color: #ffc107; }
+            &.o_sb_stat_danger  .o_sb_stat_value { color: #dc3545; }
+        }
+    }
+
+    .o_sb_progress {
+        height: 6px;
+        background: #e9ecef;
+        border-radius: 3px;
+        overflow: hidden;
+
+        .o_sb_progress_bar {
+            height: 100%;
+            background: linear-gradient(90deg, #714B67, #875A7B);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+    }
+}

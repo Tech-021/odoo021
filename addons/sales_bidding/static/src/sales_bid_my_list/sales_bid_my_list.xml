@@ -1,0 +1,29 @@
+<templates xml:space="preserve">
+    <t t-name="sales_bidding.SalesBidMyListRenderer"
+       t-inherit="web.ListRenderer" t-inherit-mode="primary">
+        <xpath expr="//div[hasclass('o_list_renderer')]" position="before">
+            <div class="o_sb_stats_banner mx-3 mb-3">
+                <div class="o_sb_stats_cards d-flex flex-wrap gap-3">
+                    <div class="o_sb_stat_card">
+                        <span class="o_sb_stat_value" t-esc="this.sbStats.count"/>
+                        <span class="o_sb_stat_label">Today's Bids</span>
+                    </div>
+                    <div class="o_sb_stat_card">
+                        <span class="o_sb_stat_value" t-esc="this.sbStats.target"/>
+                        <span class="o_sb_stat_label">Daily Target</span>
+                    </div>
+                    <div class="o_sb_stat_card" t-att-class="this.achievementClass">
+                        <span class="o_sb_stat_value">
+                            <t t-esc="this.formattedAchievement"/>%
+                        </span>
+                        <span class="o_sb_stat_label">Achievement</span>
+                    </div>
+                </div>
+                <div class="o_sb_progress mt-2">
+                    <div class="o_sb_progress_bar"
+                         t-att-style="'width: ' + Math.min(this.sbStats.achievement, 100) + '%'"/>
+                </div>
+            </div>
+        </xpath>
+    </t>
+</templates>
