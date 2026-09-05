@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.hr.attendance.slack</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_attendance.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='hr_attendance']" position="inside">
+                <block title="Slack" name="slack_attendance_settings">
+                    <setting string="HR Channel Notifications"
+                             help="Post a message to Slack whenever an employee checks in or out. Use an Incoming Webhook created for the #hr channel.">
+                        <field name="slack_attendance_enabled"/>
+                        <div class="content-group" invisible="not slack_attendance_enabled">
+                            <div class="row mt16">
+                                <label for="slack_attendance_webhook_url" string="Incoming Webhook URL" class="col-lg-3 o_light_label"/>
+                                <field name="slack_attendance_webhook_url"
+                                       password="True"
+                                       placeholder="https://hooks.slack.com/services/..."
+                                       nolabel="1"/>
+                            </div>
+                            <div class="mt8">
+                                <button name="action_test_slack_attendance"
+                                        type="object"
+                                        string="Send test message"
+                                        class="btn-link"
+                                        icon="fa-paper-plane"/>
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>
