@@ -1,0 +1,33 @@
+.o_web_client.o_webclient_sidebar {
+    --mm-sidebar-bg: #1c1c1e;
+    --mm-sidebar-border: rgba(255, 255, 255, 0.08);
+    --mm-row-hover: rgba(255, 255, 255, 0.08);
+    --mm-row-active: #2c2c2e;
+    --mm-text: #f5f5f7;
+    --mm-text-secondary: #a1a1a6;
+    --mm-accent: #0a84ff;
+    --mm-topbar-bg: rgba(28, 28, 30, 0.72);
+
+    .o_app_sidebar_search {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .o_app_sidebar_icon {
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
+    }
+
+    .o_app_sidebar_nav {
+        scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+    }
+}
+
+.o_web_client.o_webclient_sidebar .o-dropdown--menu,
+.o-overlay-item .o-dropdown--menu {
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.04);
+    background-color: #2c2c2e;
+
+    .dropdown-header {
+        color: #a1a1a6;
+    }
+}

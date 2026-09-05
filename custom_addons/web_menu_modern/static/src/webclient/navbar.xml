@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="web_menu_modern.AppIcon">
+        <t t-set="icon" t-value="getAppIcon(app)"/>
+        <span class="o_app_sidebar_icon">
+            <img t-if="icon.src" t-att-src="icon.src" t-att-alt="app.name"/>
+            <span t-elif="icon.iconClass" class="o_app_sidebar_icon_fa d-flex align-items-center justify-content-center"
+                  t-attf-style="background-color: {{icon.backgroundColor}}; color: {{icon.color}}">
+                <i t-att-class="icon.iconClass"/>
+            </span>
+            <img t-else="" src="/web/static/img/default_icon_app.png" t-att-alt="app.name"/>
+        </span>
+    </t>
+
+    <t t-name="web_menu_modern.SectionTree">
+        <li class="o_app_sidebar_section" t-att-class="{ 'o_app_sidebar_section--nested': depth gt 0 }">
+            <t t-if="section.childrenTree and section.childrenTree.length">
+                <a t-if="section.actionID"
+                   class="o_app_sidebar_section_link o_app_sidebar_section_group o_nav_entry"
+                   t-att-href="getMenuItemHref(section)"
+                   t-att-data-menu-xmlid="section.xmlid"
+                   t-att-data-section="section.id"
+                   t-on-click.prevent="() => this.onSectionSelected(section)">
+                    <t t-esc="section.name"/>
+                </a>
+                <div t-else="" class="o_app_sidebar_section_group" t-att-data-menu-xmlid="section.xmlid">
+                    <t t-esc="section.name"/>
+                </div>
+                <ul class="o_app_sidebar_section_children list-unstyled mb-0">
+                    <t t-foreach="section.childrenTree" t-as="child" t-key="child.id">
+                        <t t-call="web_menu_modern.SectionTree">
+                            <t t-set="section" t-value="child"/>
+                            <t t-set="depth" t-value="depth + 1"/>
+                            <t t-set="hotkeyIndex" t-value="-1"/>
+                        </t>
+                    </t>
+                </ul>
+            </t>
+            <a t-else=""
+               class="o_app_sidebar_section_link o_nav_entry"
+               t-att-href="getMenuItemHref(section)"
+               t-att-data-menu-xmlid="section.xmlid"
+               t-att-data-section="section.id"
+               t-att-data-hotkey="sectionHotkey(hotkeyIndex, depth)"
+               t-on-click.prevent="() => this.onSectionSelected(section)">
+                <t t-esc="section.name"/>
+            </a>
+        </li>
+    </t>
+
+    <t t-name="web_menu_modern.NavBar">
+        <header class="o_navbar o_navbar--finder" t-ref="root">
+            <aside class="o_app_sidebar d-print-none"
+                   t-att-class="{
+                       'o_app_sidebar--collapsed': isSidebarCollapsed,
+                       'o_app_sidebar--open': state.isAppMenuSidebarOpened,
+                   }"
+                   t-on-touchstart.stop="_onSwipeStart"
+                   t-on-touchend.stop="_onSwipeEnd">
+                <div class="o_app_sidebar_header">
+                    <div t-if="!isSidebarCollapsed" class="o_app_sidebar_search">
+                        <i class="fa fa-search" aria-hidden="true"/>
+                        <input type="search"
+                               class="o_app_sidebar_search_input"
+                               t-ref="sidebarSearch"
+                               t-on-input="onSearchInput"
+                               t-att-placeholder="searchPlaceholder"
+                               autocomplete="off"
+                               data-hotkey="h"/>
+                        <button t-if="ui.isSmall"
+                                type="button"
+                                class="o_app_sidebar_close btn"
+                                aria-label="Close menu"
+                                title="Close menu"
+                                t-on-click.stop="_closeAppMenuSidebar">
+                            <i class="oi oi-close"/>
+                        </button>
+                    </div>
+                    <button t-else=""
+                            type="button"
+                            class="o_app_sidebar_search_btn"
+                            title="Search"
+                            aria-label="Search"
+                            data-hotkey="h"
+                            t-on-click="expandAndFocusSearch">
+                        <i class="fa fa-search"/>
+                    </button>
+                </div>
+
+                <nav class="o_app_sidebar_nav" aria-label="Applications">
+                    <div class="o_menu_sections d-none" t-ref="appSubMenus" role="menu"/>
+                    <t t-foreach="filteredApps" t-as="app" t-key="app.id">
+                        <div class="o_app_sidebar_app"
+                             t-att-class="{ 'o_app_sidebar_app--active': currentApp and currentApp.id === app.id }">
+                            <a class="o_app_sidebar_app_row"
+                               t-att-href="getMenuItemHref(app)"
+                               t-att-data-menu-xmlid="app.xmlid"
+                               t-att-data-section="app.id"
+                               t-att-title="app.name"
+                               t-on-click.prevent="() => this.onAppSelected(app)">
+                                <t t-call="web_menu_modern.AppIcon">
+                                    <t t-set="app" t-value="app"/>
+                                </t>
+                                <span class="o_app_sidebar_app_name" t-esc="app.name"/>
+                            </a>
+                            <ul t-if="isAppExpanded(app)" class="o_app_sidebar_sections list-unstyled mb-0">
+                                <t t-foreach="getAppSections(app)" t-as="section" t-key="section.id">
+                                    <t t-call="web_menu_modern.SectionTree">
+                                        <t t-set="section" t-value="section"/>
+                                        <t t-set="depth" t-value="0"/>
+                                        <t t-set="hotkeyIndex" t-value="section_index"/>
+                                    </t>
+                                </t>
+                            </ul>
+                        </div>
+                    </t>
+                </nav>
+
+                <div t-if="!isWebsiteEditorActive" class="o_app_sidebar_footer d-none d-md-block">
+                    <button type="button"
+                            class="o_app_sidebar_collapse_btn"
+                            t-att-title="collapseLabel"
+                            t-att-aria-expanded="isSidebarCollapsed ? 'false' : 'true'"
+                            t-att-aria-label="collapseLabel"
+                            t-on-click="toggleCollapsed">
+                        <i t-att-class="isSidebarCollapsed ? 'fa fa-angle-double-right' : 'fa fa-angle-double-left'"/>
+                        <span class="o_app_sidebar_collapse_label" t-esc="collapseLabel"/>
+                    </button>
+                </div>
+            </aside>
+
+            <nav class="o_main_navbar d-print-none" data-command-category="disabled">
+                <a href="/odoo"
+                   class="o_menu_toggle border-0 d-md-none"
+                   t-att-class="{'hasImage': currentApp?.webIconData}"
+                   accesskey="h"
+                   t-ref="menuApps"
+                   t-on-click.prevent="_openAppMenuSidebar">
+                    <i class="fa fa-bars" aria-hidden="true"/>
+                </a>
+
+                <div t-if="!isScopedApp" class="o_navbar_apps_menu d-none d-md-none"/>
+
+                <DropdownItem
+                    t-if="!this.ui.isSmall and currentApp"
+                    t-esc="currentApp.name"
+                    class="'o_menu_brand d-flex'"
+                    onSelected="() => this.onNavBarDropdownItemSelection(currentApp)"
+                    attrs="{ href: getMenuItemHref(currentApp), 'data-menu-xmlid': currentApp.xmlid, 'data-section': currentApp.id }"
+                />
+                <span t-elif="this.ui.isSmall and currentApp" class="o_menu_brand d-flex" t-esc="currentApp.name"/>
+
+                <div class="o_navbar_breadcrumbs d-contents"/>
+
+                <div class="o_menu_systray d-flex flex-shrink-0 ms-auto bg-inherit" role="menu">
+                    <t t-foreach="systrayItems" t-as="item" t-key="item.key">
+                        <div t-att-data-index="item.index"/>
+                        <ErrorHandler onError="error => this.handleItemError(error, item)">
+                            <t t-component="item.Component" t-props="item.props"/>
+                        </ErrorHandler>
+                    </t>
+                </div>
+            </nav>
+
+            <div t-if="ui.isSmall and state.isAppMenuSidebarOpened"
+                 class="o_app_sidebar_backdrop modal-backdrop show d-block d-md-none"
+                 t-on-click.stop="_closeAppMenuSidebar"
+                 t-on-touchstart.stop="_onSwipeStart"
+                 t-on-touchend.stop="_onSwipeEnd"/>
+        </header>
+    </t>
+
+</templates>

@@ -133,6 +133,8 @@
         </t>
     </template>
 
+    
+
     <template id="web.login" name="Login">
         <t t-call="web.login_layout">
             <div class="oe_structure" id="oe_structure_login_top"/>
