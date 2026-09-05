@@ -27,6 +27,48 @@
                             </div>
                         </div>
                     </setting>
+                    <setting string="Missing Check-in Reminder"
+                             help="Each workday, post the employees who are scheduled to work but have not checked in. Skips weekends, public holidays, and time off."
+                             invisible="not slack_attendance_enabled">
+                        <field name="slack_reminder_check_in_enabled"/>
+                        <div class="content-group" invisible="not slack_reminder_check_in_enabled">
+                            <div class="row mt16">
+                                <label for="slack_reminder_check_in_hour" string="Send at" class="col-lg-3 o_light_label"/>
+                                <div>
+                                    <field name="slack_reminder_check_in_hour" widget="float_time" class="oe_inline"/>
+                                    <span class="text-muted ms-2">company timezone</span>
+                                </div>
+                            </div>
+                            <div class="mt8">
+                                <button name="action_send_slack_check_in_reminder"
+                                        type="object"
+                                        string="Send missing check-in list now"
+                                        class="btn-link"
+                                        icon="fa-bell"/>
+                            </div>
+                        </div>
+                    </setting>
+                    <setting string="Missing Check-out Reminder"
+                             help="Each day, post the employees who are still checked in after this time."
+                             invisible="not slack_attendance_enabled">
+                        <field name="slack_reminder_check_out_enabled"/>
+                        <div class="content-group" invisible="not slack_reminder_check_out_enabled">
+                            <div class="row mt16">
+                                <label for="slack_reminder_check_out_hour" string="Send at" class="col-lg-3 o_light_label"/>
+                                <div>
+                                    <field name="slack_reminder_check_out_hour" widget="float_time" class="oe_inline"/>
+                                    <span class="text-muted ms-2">company timezone</span>
+                                </div>
+                            </div>
+                            <div class="mt8">
+                                <button name="action_send_slack_check_out_reminder"
+                                        type="object"
+                                        string="Send still-checked-in list now"
+                                        class="btn-link"
+                                        icon="fa-bell"/>
+                            </div>
+                        </div>
+                    </setting>
                 </block>
             </xpath>
         </field>
