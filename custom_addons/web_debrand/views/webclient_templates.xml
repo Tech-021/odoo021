@@ -5,7 +5,7 @@
             <title t-esc="title or 'Zero To One'"/>
         </xpath>
         <xpath expr="//link[@rel='shortcut icon']" position="replace">
-            <link type="image/x-icon" rel="shortcut icon" t-att-href="x_icon or '/web_debrand/static/img/favicon.ico'"/>
+            <link type="image/x-icon" rel="shortcut icon" t-att-href="x_icon or '/web_debrand/static/img/favicon.ico?v=2'"/>
         </xpath>
     </template>
 
@@ -22,7 +22,7 @@
 
     <template id="webclient_bootstrap_debrand" inherit_id="web.webclient_bootstrap">
         <xpath expr="//meta[@name='theme-color']" position="replace">
-            <meta name="theme-color" content="#009244"/>
+            <meta name="theme-color" content="#009245"/>
         </xpath>
         <xpath expr="//link[@rel='apple-touch-icon']" position="replace">
             <link rel="apple-touch-icon" href="/web_debrand/static/img/icon-ios.png"/>

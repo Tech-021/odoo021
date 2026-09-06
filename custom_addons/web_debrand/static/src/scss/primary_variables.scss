@@ -1,0 +1,7 @@
+// Override Odoo purple with the Zero To One website/company palette.
+// Loaded before web/static/src/scss/primary_variables.scss so `!default`
+// assignments keep these values.
+
+$o-community-color: #009245;
+$o-brand-odoo: #009245;
+$o-brand-primary: #009245;

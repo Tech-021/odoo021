@@ -1,0 +1,9 @@
+// Align backend chrome with the website/company brand colors.
+
+.o_web_client.o_webclient_sidebar {
+    --mm-accent: #{$o-brand-primary};
+}
+
+.o_web_client {
+    --o-community-color: #{$o-brand-primary};
+}

@@ -1,10 +1,7 @@
-import base64
 import logging
 import re
 
-from odoo.tools import file_open
-
-from .const import BRAND_NAME, BRAND_URL, FAVICON_FILE
+from .const import BRAND_NAME, BRAND_URL
 
 _logger = logging.getLogger(__name__)
 
@@ -34,12 +31,7 @@ def _set_web_app_name(env):
 def _set_website_favicon(env):
     if "website" not in env:
         return
-    with file_open(FAVICON_FILE, "rb") as f:
-        payload = base64.b64encode(f.read())
-    websites = env["website"].sudo().search([])
-    if websites:
-        websites.write({"favicon": payload})
-        _logger.info("Updated favicon on %s website(s)", len(websites))
+    env["website"]._web_debrand_apply_favicon()
 
 
 def _debrand_mail_templates(env):
