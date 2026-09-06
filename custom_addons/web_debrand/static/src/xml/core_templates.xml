@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="web.SessionExpiredDialog" t-inherit-mode="extension">
+        <xpath expr="//Dialog" position="attributes">
+            <attribute name="title.translate">Session Expired</attribute>
+        </xpath>
+        <xpath expr="//p" position="replace">
+            <p class="text-prewrap">
+                Your session expired. The current page is about to be refreshed.
+            </p>
+        </xpath>
+    </t>
+
+    <t t-inherit="web.InstallScopedApp" t-inherit-mode="extension">
+        <xpath expr="//a[@href='https://odoo.com']" position="replace">
+            <a class="text-primary text-decoration-none" href="https://www.tech-021.com" alt="Zero To One" target="_blank">TECH 021</a>
+        </xpath>
+    </t>
+</templates>

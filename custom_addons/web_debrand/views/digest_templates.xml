@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="digest_mail_main_debrand" inherit_id="digest.digest_mail_main">
+        <xpath expr="//p[@id='powered']" position="replace">
+            <p class="by_odoo" id="powered">
+                Powered by <a href="https://www.tech-021.com" target="_blank" class="odoo_link">
+                    <span class="odoo_link_text">Zero To One</span></a>
+            </p>
+        </xpath>
+    </template>
+</odoo>

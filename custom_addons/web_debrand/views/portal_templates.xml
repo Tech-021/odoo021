@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_record_sidebar_debrand" inherit_id="portal.portal_record_sidebar">
+        <xpath expr="//a[contains(@href, 'utm_medium=portal')]/parent::div" position="replace">
+            <div class="d-none d-lg-block mt-5 small text-center text-muted">
+                Powered by <a target="_blank" href="https://www.tech-021.com">Zero To One</a>
+            </div>
+        </xpath>
+    </template>
+</odoo>

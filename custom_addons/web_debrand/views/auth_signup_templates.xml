@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="reset_password_email_debrand" inherit_id="auth_signup.reset_password_email">
+        <xpath expr="//a[contains(@href, 'odoo.com')]" position="replace">
+            <a target="_blank" href="https://www.tech-021.com" t-attf-style="color: {{object.company_id.email_secondary_color or '#009245'}};">Zero To One</a>
+        </xpath>
+    </template>
+</odoo>

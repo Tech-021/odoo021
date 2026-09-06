@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="layout_debrand" inherit_id="web.layout">
+        <xpath expr="//title" position="replace">
+            <title t-esc="title or 'Zero To One'"/>
+        </xpath>
+        <xpath expr="//link[@rel='shortcut icon']" position="replace">
+            <link type="image/x-icon" rel="shortcut icon" t-att-href="x_icon or '/web_debrand/static/img/favicon.ico?v=2'"/>
+        </xpath>
+    </template>
+
+    <template id="brand_promotion_message_debrand" inherit_id="web.brand_promotion_message">
+        <xpath expr="//t[@t-set='odoo_logo']" position="replace">
+            <t t-set="odoo_logo">
+                <a target="_blank" href="https://www.tech-021.com" class="badge text-bg-light">Zero To One</a>
+            </t>
+        </xpath>
+        <xpath expr="//t[@t-set='final_message']" position="replace">
+            <t t-set="final_message">Powered by %s%s</t>
+        </xpath>
+    </template>
+
+    <template id="webclient_bootstrap_debrand" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//meta[@name='theme-color']" position="replace">
+            <meta name="theme-color" content="#009245"/>
+        </xpath>
+        <xpath expr="//link[@rel='apple-touch-icon']" position="replace">
+            <link rel="apple-touch-icon" href="/web_debrand/static/img/icon-ios.png"/>
+        </xpath>
+    </template>
+
+    <template id="webclient_offline_debrand" inherit_id="web.webclient_offline">
+        <xpath expr="//img" position="replace">
+            <img t-attf-src="data:image/png;base64,{{odoo_icon}}" alt="Zero To One logo"/>
+        </xpath>
+        <xpath expr="//p" position="replace">
+            <p>Check your network connection and come back here. The app will load as soon as you're back online.</p>
+        </xpath>
+    </template>
+</odoo>
