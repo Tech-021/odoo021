@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="website_layout_debrand" inherit_id="website.layout">
+        <xpath expr="//meta[@name='generator']" position="replace">
+            <meta name="generator" content="Zero To One"/>
+        </xpath>
+        <xpath expr="//a[hasclass('o_frontend_to_backend_apps_btn')]" position="attributes">
+            <attribute name="title">Go to your Apps</attribute>
+        </xpath>
+    </template>
+
+    <template id="website_brand_promotion_debrand" inherit_id="website.brand_promotion">
+        <xpath expr="//t[@t-call='web.brand_promotion_message']" position="replace">
+            <t t-set="_message"></t>
+            <t t-call="web.brand_promotion_message" _utm_medium.f="website"/>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="card_campaign_preview_debrand" inherit_id="marketing_card.card_campaign_preview">
+        <xpath expr="//footer" position="replace">
+            <footer class="d-flex flex-column align-items-center fixed-bottom">
+                <span>Powered by <a target="_blank" href="https://www.tech-021.com" style="color: #009244;">Zero To One</a></span>
+            </footer>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="discuss_public_channel_template_debrand" inherit_id="mail.discuss_public_channel_template">
+        <xpath expr="//title" position="replace">
+            <title t-esc="title or 'Zero To One'"/>
+        </xpath>
+        <xpath expr="//link[@rel='shortcut icon']" position="replace">
+            <link type="image/x-icon" rel="shortcut icon" t-att-href="x_icon or '/web_debrand/static/img/favicon.ico'"/>
+        </xpath>
+    </template>
+</odoo>
