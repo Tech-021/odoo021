@@ -1,7 +1,7 @@
 from datetime import datetime, time, timedelta
 
-
-from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo import _, api, fields, models
 
 class SalesBid(models.Model):
     _name = "sales.bid"
@@ -116,6 +116,13 @@ class SalesBid(models.Model):
             "count": count,
             "achievement": (count / target) * 100 if target > 0 else 0.0,
         }
+
+    @api.constrains("bid_date")
+    def _check_bid_date_not_future(self):
+        today = fields.Date.context_today(self)
+        for record in self:
+            if record.bid_date and fields.Date.to_date(record.bid_date) > today:
+                raise ValidationError(_("Bid date cannot be in the future."))
 
     @api.depends("salesperson_id", "bid_date")
     def _compute_daily_bid_achievement(self):

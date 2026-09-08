@@ -74,6 +74,15 @@
             <list position="attributes">
                 <attribute name="js_class">sales_bid_my_list</attribute>
             </list>
+            <xpath expr="//list" position="inside">
+                <header>
+                    <button name="%(sales_bidding.action_sales_bid_import_wizard)d"
+                            string="Upload Bids"
+                            type="action"
+                            class="btn-primary"
+                            display="always"/>
+                </header>
+            </xpath>
         </field>
     </record>
 

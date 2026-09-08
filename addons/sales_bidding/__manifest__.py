@@ -11,6 +11,7 @@
         "security/ir.model.access.csv",
         "views/sales_bid_views.xml",
         "views/res_config_settings_views.xml",
+        "wizard/sales_bid_import_wizard_views.xml",
     ],
     "assets": {
     "web.assets_backend": [

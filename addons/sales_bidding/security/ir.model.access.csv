@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_sales_bid_user,sales.bid.user,model_sales_bid,sales_bidding.group_sales_bidding_user,1,1,1,0
 access_sales_bid_manager,sales.bid.manager,model_sales_bid,sales_bidding.group_sales_bidding_manager,1,1,1,1
+access_sales_bid_import_wizard_user,sales.bid.import.wizard.user,model_sales_bid_import_wizard,sales_bidding.group_sales_bidding_user,1,1,1,1
+access_sales_bid_import_wizard_manager,sales.bid.import.wizard.manager,model_sales_bid_import_wizard,sales_bidding.group_sales_bidding_manager,1,1,1,1
